@@ -32,16 +32,6 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors().disable()
-                .csrf().disable()
-                .authorizeRequests()
-                .filterSecurityInterceptorOncePerRequest(true)
-                .antMatchers("/users/login").permitAll()
-
-                .antMatchers(HttpMethod.POST,"/products/add").hasAnyAuthority("admin")
-                .antMatchers(HttpMethod.GET, "/products").hasAnyAuthority("admin", "user")
-                .antMatchers(HttpMethod.GET, "/products/{id:\\d+}").hasAnyAuthority("admin", "user")
-                .antMatchers(HttpMethod.DELETE, "/products/delete/{id:\\d+}").hasAnyAuthority("admin");
-
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .csrf().disable();
     }
 }
