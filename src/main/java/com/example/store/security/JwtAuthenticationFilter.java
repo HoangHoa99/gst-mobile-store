@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         try {
-            String jwt = request.getHeader("Authorization").substring(7);
+            String jwt = request.getHeader("x-auth-token");
 
             Jwts.parser().setSigningKey(AppConstant.JWT_SECRET).parseClaimsJws(jwt);
 
