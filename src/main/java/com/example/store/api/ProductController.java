@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("products")
 public class ProductController {
