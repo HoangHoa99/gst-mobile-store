@@ -14,7 +14,12 @@ import java.io.Serializable;
 @Table(name = "categories")
 public class Category implements Serializable {
 
-    @Id
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
