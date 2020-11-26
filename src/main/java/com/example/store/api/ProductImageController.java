@@ -2,7 +2,6 @@ package com.example.store.api;
 
 import com.example.store.dao.entity.ProductImage;
 import com.example.store.service.ProductImageService;
-import com.example.store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;

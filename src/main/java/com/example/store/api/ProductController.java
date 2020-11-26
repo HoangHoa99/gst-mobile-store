@@ -1,15 +1,15 @@
 package com.example.store.api;
 
 import com.example.store.dto.request.ProductRequest;
-import com.example.store.dto.response.ProductResponse;
 import com.example.store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.FileNotFoundException;
-import java.util.List;
 
 @RestController
 @RequestMapping("products")
@@ -18,7 +18,7 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping("add")
-    public ProductResponse addProduct(
+    public ResponseEntity<?> addProduct(
             @ModelAttribute("name") String name,
             @ModelAttribute("price") Integer price,
             @ModelAttribute("quantity") Integer quantity,
@@ -29,7 +29,8 @@ public class ProductController {
             @Valid @ModelAttribute("image") MultipartFile image
             ) throws FileNotFoundException {
 
-        return productService.addProduct(ProductRequest.builder()
+                return ResponseEntity.status(HttpStatus.OK).body(
+                    productService.addProduct(ProductRequest.builder()
                                         .name(name)
                                         .price(price)
                                         .quantity(quantity)
@@ -38,22 +39,24 @@ public class ProductController {
                                         .category(cate)
                                         .condition(condition)
                                         .image(image)
-                                        .build());
+                                        .build())
+                                        );
     }
 
     @DeleteMapping("delete/{id}")
-    public void deleteProduct(@Valid @PathVariable Integer id){
+    public ResponseEntity<?> deleteProduct(@Valid @PathVariable Integer id){
         productService.deleteProductById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("delete successful");
     }
 
     @GetMapping
-    public List<ProductResponse> getProductList(){
-        return productService.getListProduct();
+    public ResponseEntity<?> getProductList(){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getListProduct());
     }
 
     @GetMapping("/{id}")
-    public ProductResponse getProductById(@Valid @PathVariable Integer id){
-        return productService.getProductDetail(id);
+    public ResponseEntity<?> getProductById(@Valid @PathVariable Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getProductDetail(id));
     }
 
 }
